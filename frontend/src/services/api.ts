@@ -105,12 +105,24 @@ export const api = {
   },
 
   async chatWithPhantom(message: string, investigation_id?: string, history: ChatMessage[] = []): Promise<{ reply: string; model: string }> {
-    const res = await fetch(`${API_BASE}/ai/chat`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message, investigation_id, history })
-    });
-    return handleResponse(res);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000);
+    try {
+      const res = await fetch(`${API_BASE}/ai/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message, investigation_id, history }),
+        signal: controller.signal
+      });
+      return handleResponse(res);
+    } catch (e: any) {
+      if (e.name === 'AbortError') {
+        throw new Error('Request timed out after 30 seconds. The local AI entity took too long to answer.');
+      }
+      throw e;
+    } finally {
+      clearTimeout(timeoutId);
+    }
   },
 
   async getSettings(): Promise<AppSettings> {

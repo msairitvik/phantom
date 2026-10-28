@@ -39,14 +39,16 @@ export const TerminalConsole: React.FC<TerminalConsoleProps> = ({
 
   const terminalEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const executedInitialRef = useRef<string | null>(null);
 
   useEffect(() => {
     terminalEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [logs]);
 
-  // Handle external query triggers (e.g. from "Ask PHANTOM" in finding detail)
+  // Handle external query triggers (e.g. from "Ask PHANTOM" in finding detail) without duplicates
   useEffect(() => {
-    if (initialQuery) {
+    if (initialQuery && initialQuery !== executedInitialRef.current) {
+      executedInitialRef.current = initialQuery;
       handleExecuteCommand(initialQuery);
     }
   }, [initialQuery]);
@@ -64,6 +66,7 @@ export const TerminalConsole: React.FC<TerminalConsoleProps> = ({
   };
 
   const handleExecuteCommand = async (cmdText: string) => {
+    if (loading) return; // Prevent duplicate requests while command is running
     const trimmed = cmdText.trim();
     if (!trimmed) return;
 

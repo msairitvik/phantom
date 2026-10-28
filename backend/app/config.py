@@ -9,10 +9,11 @@ class Settings(BaseSettings):
     VERSION: str = "1.0.0"
     DEBUG: bool = False
     
-    # AI / Ollama configuration
+    # AI / Ollama configuration (gemma2:2b default for ultra-fast conversational terminal)
     OLLAMA_BASE_URL: str = "http://127.0.0.1:11434"
-    OLLAMA_MODEL: str = "qwen3:4b"
-    OLLAMA_TIMEOUT_SECONDS: int = 120
+    OLLAMA_MODEL: str = "gemma2:2b"
+    OLLAMA_TIMEOUT_SECONDS: int = 60
+    OLLAMA_CHAT_TIMEOUT_SECONDS: int = 25
     
     # Workspace & File safety limits
     DEFAULT_WORKSPACE_ROOT: str = str(Path(__file__).resolve().parent.parent.parent)
