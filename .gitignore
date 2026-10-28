@@ -49,6 +49,8 @@ backend/data/*.db-journal
 *.key
 id_rsa
 credentials.json
+# Allow synthetic mock .env for the safe demo project
+!sample_project/.env
 
 # Operating System
 .DS_Store
