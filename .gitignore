@@ -1,0 +1,62 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+backend/.venv/
+.venv/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+test_phantom.db
+
+# Node / Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.tmp/
+.npm
+.eslintcache
+*.tsbuildinfo
+
+# Database & Runtime State
+backend/data/*.db
+backend/data/*.db-journal
+*.sqlite
+*.sqlite3
+
+# Environment & Secrets (Never commit secrets)
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+id_rsa
+credentials.json
+
+# Operating System
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
