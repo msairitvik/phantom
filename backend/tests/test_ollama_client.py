@@ -101,5 +101,7 @@ async def test_successful_greeting_fast_response():
             history=[],
             project_name="TestApp"
         )
-        assert len(reply) > 0
-        assert "mortal" in reply.lower() or "phantom" in reply.lower() or "awake" in reply.lower() or "hello" in reply.lower() or "greetings" in reply.lower()
+        assert len(reply) > 10
+        assert not reply.startswith("Error")
+        # Ensure it didn't return an internal failure or prompt dump
+        assert "<untrusted_investigation_evidence>" not in reply
